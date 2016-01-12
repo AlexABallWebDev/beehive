@@ -10,6 +10,8 @@
  *
  */
 
+//testing github with this comment
+
 //errorArray starts empty. errors will be added if something is wrong.
 $errorArray = array();
 
