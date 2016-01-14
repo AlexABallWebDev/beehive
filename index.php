@@ -66,18 +66,32 @@ if (isset($_POST['submit']))
 		//get database connection called $beeDBConnection
 		require('bee-db-connection.php');
 		
+		/*
 		//escape data to help prevent sql injection
 		$miteFormHiveID = mysqli_real_escape_string($beeDBConnection, $miteFormHiveID);
 		$miteFormSampleDate = mysqli_real_escape_string($beeDBConnection, $miteFormSampleDate);
 		$miteFormSamplePeriod = mysqli_real_escape_string($beeDBConnection, $miteFormSamplePeriod);
 		$miteFormMiteCount = mysqli_real_escape_string($beeDBConnection, $miteFormMiteCount);
+		*/
 		
 		//create mysql statement
 		$sql = 'INSERT INTO bee_mite_count_data (hive_id, collection_date, sample_period, num_mites) VALUES';
-		$sql .= " ('$miteFormHiveID', '$miteFormSampleDate', '$miteFormSamplePeriod', '$miteFormMiteCount')";
+		$sql .= " (:miteFormHiveID, :miteFormSampleDate, :miteFormSamplePeriod, :miteFormMiteCount)";
+		
+		//$sql .= " ('$miteFormHiveID', '$miteFormSampleDate', '$miteFormSamplePeriod', '$miteFormMiteCount')";
+		
+		//get prepared statement
+		$statement = $beeDBConnection->prepare($sql);
+		
+		$statement->bindParam(':miteFormHiveID', $miteFormHiveID, PDO::PARAM_STR);
+		$statement->bindParam(':miteFormSampleDate', $miteFormSampleDate, PDO::PARAM_STR);
+		$statement->bindParam(':miteFormSamplePeriod', $miteFormSamplePeriod, PDO::PARAM_INT);
+		$statement->bindParam(':miteFormMiteCount', $miteFormMiteCount, PDO::PARAM_INT);
 		
 		//submit statement to the database
-		$results = mysqli_query($beeDBConnection, $sql);
+		$results = $statement->execute();
+		
+		//$results = mysqli_query($beeDBConnection, $sql);
 		
 		//if successful, redirect to successful submission page.
 		if ($results)
