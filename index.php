@@ -64,7 +64,7 @@ if (isset($_POST['submit']))
 	if (empty($errorArray))
 	{
 		//get database connection called $beeDBConnection
-		require('/home/aball/secure-includes/bee-db-connection.php');
+		require('/home/alexb/secure-includes/bee-db-connection.php');
 		
 		/*
 		//escape data to help prevent sql injection
