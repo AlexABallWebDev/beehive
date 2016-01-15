@@ -95,6 +95,9 @@ if (isset($_POST['submit']))
 		{
 			$errorArray['databaseError'] = '<p class="form-error">Error submitting to database.</p>';
 		}
+		
+		//close connection
+		$beeDBConnection = null;
 	}
 }
 ?>

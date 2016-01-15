@@ -28,7 +28,17 @@ class BeeDataModel {
 		
 		return $results;
 	}
+	
+	function getAllDataRows()
+	{
+		//create mysql statement
+		$sql = 'SELECT hive_id, collection_date, sample_period, num_mites FROM bee_mite_count_data';
+		
+		//query for all rows in the database
+		$results = $this->db->query($sql);
+		
+		return $results;
+	}
 }
 
-
-
+?>
