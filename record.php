@@ -82,12 +82,52 @@ if (isset($_POST['submit']))
 		
 		//$results = mysqli_query($beeDBConnection, $sql);
 		
-		//if successful, show success message
+		//if successful, show success message and update the table excel file
 		if ($results)
 		{
 			$success = true;
+			
+			//get data rows
+			$resultRows = $dataModel->getAllDataRows();
+			
+			//update table excel file
+			
+			/** PHPExcel */
+			include 'Classes/PHPExcel.php';
+			
+			/** PHPExcel_Writer_Excel2007 */
+			include 'Classes/PHPExcel/Writer/Excel2007.php';
+			
+			// Create new PHPExcel object
+			$objPHPExcel = new PHPExcel();
+			
+			// add headers to sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			$objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Hive Name');
+			$objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Observation Date');
+			$objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Duration');
+			$objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Mite Count');
+			
+			// add data to sheet
+			$rowNumber = 2;
+			foreach($resultRows as $row)
+			{
+				$objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowNumber, $row['hive_name']);
+				$objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowNumber, $row['observation_date']);
+				$objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowNumber, $row['duration']);
+				$objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowNumber, $row['mite_count']);
+				$rowNumber += 1;
+			}
+			
+			// Rename sheet
+			$objPHPExcel->getActiveSheet()->setTitle('beeDataExcelSheet');
+					
+			// Save Excel 2007 file
+			$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+			$objWriter->save('beeDataExcelSheet.xlsx');
 		}
-		//otherwise, it is assumed that something went wrong
+		//otherwise, it is assumed that something went wrong,
+		//so an error message will be displayed.
 		
 		//close connection
 		$beeDBConnection = null;

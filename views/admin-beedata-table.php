@@ -28,7 +28,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>Bee Mite Data Admin Table</h1>
+					<h1>Bee Data Admin Table</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="beeDataExcelSheet.xlsx" class="btn btn-primary">Download Table as an Excel sheet</a>
 				</div>
 			</div>
 			<div class="row">

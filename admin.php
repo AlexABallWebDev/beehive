@@ -14,7 +14,7 @@
 require('/home/alexb/secure-includes/bee-db-connection.php');
 
 //get access to the data model
-require ('models/bee-data-model.php');
+require ('models/observationmodel.php');
 
 //create data model instance
 $dataModel = new ObservationModel($beeDBConnection);
