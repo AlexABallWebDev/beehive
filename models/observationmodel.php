@@ -1,6 +1,6 @@
 <?php
 
-class BeeDataModel {
+class ObservationModel {
 	
 	var $db;
 	

@@ -17,7 +17,7 @@ require('/home/alexb/secure-includes/bee-db-connection.php');
 require ('models/bee-data-model.php');
 
 //create data model instance
-$dataModel = new BeeDataModel($beeDBConnection);
+$dataModel = new ObservationModel($beeDBConnection);
 
 //get data rows
 $resultRows = $dataModel->getAllDataRows();

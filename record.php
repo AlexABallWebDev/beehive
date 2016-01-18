@@ -72,10 +72,10 @@ if (isset($_POST['submit']))
 		*/
 		
 		//get access to the data model
-		require ('models/bee-data-model.php');
+		require ('models/observationmodel.php');
 		
 		//create instance of data model
-		$dataModel = new BeeDataModel($beeDBConnection);
+		$dataModel = new ObservationModel($beeDBConnection);
 		
 		//insert row
 		$results = $dataModel->insertOneRow($miteFormHiveName, $miteFormObservationDate, $miteFormDuration, $miteFormMiteCount);
@@ -122,7 +122,7 @@ if (isset($success))
 	//the form data.
 	
 	//create data model instance
-	$dataModel = new BeeDataModel($beeDBConnection);
+	$dataModel = new ObservationModel($beeDBConnection);
 	
 	//get data rows
 	$resultRows = $dataModel->getRowsByHiveName($miteFormHiveName);
