@@ -23,7 +23,7 @@ $dataModel = new BeeDataModel($beeDBConnection);
 $resultRows = $dataModel->getAllDataRows();
 
 //show the view
-require ('views/beedata-table.php');
+require ('views/admin-beedata-table.php');
 
 //close connection
 $beeDBConnection = null;

@@ -9,18 +9,18 @@ class BeeDataModel {
 		$this->db = $db;
 	}
 	
-	function insertOneRow($miteFormHiveID, $miteFormSampleDate, $miteFormSamplePeriod, $miteFormMiteCount)
+	function insertOneRow($miteFormHiveName, $miteFormObservationDate, $miteFormDuration, $miteFormMiteCount)
 	{
 		//create mysql statement
-		$sql = 'INSERT INTO bee_mite_count_data (hive_id, collection_date, sample_period, num_mites) VALUES';
-		$sql .= " (:miteFormHiveID, :miteFormSampleDate, :miteFormSamplePeriod, :miteFormMiteCount)";
+		$sql = 'INSERT INTO observation (hive_name, observation_date, duration, mite_count) VALUES';
+		$sql .= " (:miteFormHiveName, :miteFormObservationDate, :miteFormDuration, :miteFormMiteCount)";
 		
 		//get prepared statement
 		$statement = $this->db->prepare($sql);
 		
-		$statement->bindParam(':miteFormHiveID', $miteFormHiveID, PDO::PARAM_STR);
-		$statement->bindParam(':miteFormSampleDate', $miteFormSampleDate, PDO::PARAM_STR);
-		$statement->bindParam(':miteFormSamplePeriod', $miteFormSamplePeriod, PDO::PARAM_INT);
+		$statement->bindParam(':miteFormHiveName', $miteFormHiveName, PDO::PARAM_STR);
+		$statement->bindParam(':miteFormObservationDate', $miteFormObservationDate, PDO::PARAM_STR);
+		$statement->bindParam(':miteFormDuration', $miteFormDuration, PDO::PARAM_INT);
 		$statement->bindParam(':miteFormMiteCount', $miteFormMiteCount, PDO::PARAM_INT);
 		
 		//submit statement to the database
@@ -32,7 +32,19 @@ class BeeDataModel {
 	function getAllDataRows()
 	{
 		//create mysql statement
-		$sql = 'SELECT hive_id, collection_date, sample_period, num_mites FROM bee_mite_count_data';
+		$sql = 'SELECT hive_name, observation_date, duration, mite_count FROM observation';
+		
+		//query for all rows in the database
+		$results = $this->db->query($sql);
+		
+		return $results;
+	}
+	
+	function getRowsByHiveName($hiveName)
+	{
+		//create mysql statement
+		$sql = 'SELECT hive_name, observation_date, duration, mite_count FROM observation';
+		$sql .= " WHERE hive_name = '$hiveName'";
 		
 		//query for all rows in the database
 		$results = $this->db->query($sql);

@@ -8,7 +8,7 @@
 		
 		<meta name="author" content="Alex Ball">
 		
-		<title>Beehive Prototype Admin Page</title>
+		<title>Beehive Prototype - Form Submitted Successfully</title>
 		
 		<!-- Bootstrap -->
 		<link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,43 +26,48 @@
 	</head>
 	<body>
 		<div class="container">
+			<!-- Heading Area -->
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>Bee Mite Data Admin Table</h1>
+					<h1>Form Submission Successful!</h1>
 				</div>
 			</div>
+			<!-- End Heading Area -->
+			
+			<!-- Table Area -->
 			<div class="row">
 				<div class="col-xs-12">
 					<table class="table table-bordered" id="bee-data-table">
 						<thead>
 							<tr>
-								<th>Hive ID/Name</th>
-								<th>Sample Date</th>
-								<th>Sample Period</th>
+								<th>Hive Name</th>
+								<th>Observation Date</th>
+								<th>Duration</th>
 								<th>Mite Count</th>
 							</tr>
 						</thead>
 						<?php
 						foreach ($resultRows as $row) {
 							echo '<tr>';
-							echo '<td>', $row['hive_id'], '</td>';
-							echo '<td>', $row['collection_date'], '</td>';
-							echo '<td>', $row['sample_period'], '</td>';
-							echo '<td>', $row['num_mites'], '</td>';
+							echo '<td>', $row['hive_name'], '</td>';
+							echo '<td>', $row['observation_date'], '</td>';
+							echo '<td>', $row['duration'], '</td>';
+							echo '<td>', $row['mite_count'], '</td>';
 							echo '</tr>';
 						}
 						?>
 						<tfoot>
 							<tr>
-								<th>Hive ID/Name</th>
-								<th>Sample Date</th>
-								<th>Sample Period</th>
+								<th>Hive Name</th>
+								<th>Observation Date</th>
+								<th>Duration</th>
 								<th>Mite Count</th>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
 			</div>
+			<!-- End Table Area -->
 		</div>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -80,6 +85,7 @@
 				$('#bee-data-table').DataTable({
 					scrollX: true, //adds horizontal scrollbar
 					stateSave: true, //so that table remembers which column was sorted/search terms
+					"order": [[ 1, "desc" ]] //default sort; 1, desc is reverse order by observation date
 				});
 			});
 		</script>
